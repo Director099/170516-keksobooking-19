@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Ярослав Шевцов](https://up.htmlacademy.ru/javascript/19/user/170516).
-* Наставник: `Неизвестно`.
+* Наставник: `Ярослав Шевцов`.
 
 ---
 
