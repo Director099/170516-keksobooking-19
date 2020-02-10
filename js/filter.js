@@ -16,31 +16,46 @@
       mapPins[i].remove();
     }
 
-    var typeArray = pinsArray.filter(function (e) {
-      return e.offer.type === houseType.value;
-    });
+    console.log(pinsArray);
 
-    var roomsArray = pinsArray.filter(function (e) {
-      return e.offer.rooms === Number(houseRooms.value);
-    });
 
-    var questsArray = pinsArray.filter(function (e) {
-      return e.offer.guests === Number(houseQuests.value);
-    });
+    if(houseType.value != 'any') {
+      var typeArray = pinsArray.filter(function (e) {
+        return e.offer.type === houseType.value;
+      });
+  }
 
-    console.log(typeArray.concat(roomsArray).concat(questsArray));
+    console.log(typeArray);
 
-    var filterPins = typeArray.concat(roomsArray).concat(questsArray);
-    var uniquePins = filterPins.filter(function (it, i) {
-      // return filterPins.indexOf(it) === i;
-    });
+    if(houseRooms.value != 'any') {
+      var typeArrayRes = typeArray.filter(function (e) {
+        return e.offer.rooms === Number(houseRooms.value);
+      });
+      typeArray = typeArrayRes;
+      console.log(typeArrayRes);
+    }
 
-    window.createPins(uniquePins);
+    if(houseQuests.value != 'any') {
+      var typeArrayRes = typeArray.filter(function (e) {
+        return e.offer.guests === Number(houseQuests.value);
+      });
+      console.log(typeArrayRes);
+      typeArray = typeArrayRes;
+    }
+
+    console.log(typeArray);
+
+    // var filterPins = typeArray.concat(roomsArray).concat(questsArray);
+    // var uniquePins = filterPins.filter(function (it, i) {
+    //   // return filterPins.indexOf(it) === i;
+    // });
+
+    window.createPins(typeArray);
   }
 
   function successHandler(data) {
     pinsArray = data;
-    updatePins();
+    window.createPins(pinsArray);
   }
 
   form.addEventListener('change', function () {
