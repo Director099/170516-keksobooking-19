@@ -9,6 +9,42 @@
   var optionCapacity = capacity.querySelectorAll('option');
   var inputsRequired = noticeForm.querySelectorAll('input[required]');
   var fieldType = noticeForm.querySelector('#type');
+  var mainBlock = document.querySelector('main');
+
+
+  function closeModal(evt) {
+    var mainModalSuccess = mainBlock.querySelector('.success');
+    var mainModalError = mainBlock.querySelector('.error');
+
+    if (mainModalSuccess) {
+      mainModalSuccess.remove();
+    }
+
+    if (mainModalError) {
+      mainModalError.remove();
+    }
+
+    document.removeEventListener('click', closeModal);
+    if(window.utils.isEscEvent(evt)) {
+      document.removeEventListener('keydown', closeModal);
+    }
+  }
+
+
+  function showSuccess() {
+    var templateSucces = document.querySelector('#success').content.cloneNode(true);
+    mainBlock.appendChild(templateSucces);
+    document.addEventListener('click', closeModal);
+    document.addEventListener('keydown', closeModal);
+  }
+
+  function showError() {
+    var templateError = document.querySelector('#error').content.cloneNode(true);
+    mainBlock.appendChild(templateError);
+    document.addEventListener('click', closeModal);
+    document.addEventListener('keydown', closeModal);
+  }
+
 
   function validationTypeHouse() {
     var price = document.querySelector('#price');
@@ -90,6 +126,6 @@
   fieldType.addEventListener('change', validationTypeHouse);
   noticeForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.upload(new FormData(noticeForm), alert('Успешная отправка формы'), alert);
+    window.backend.upload(new FormData(noticeForm), showSuccess, showError);
   });
 })();
