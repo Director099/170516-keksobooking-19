@@ -16,18 +16,14 @@
       mapPins[i].remove();
     }
 
-    console.log(pinsArray);
 
-
-    if(houseType.value != 'any') {
+    if (houseType.value != 'any') {
       var typeArray = pinsArray.filter(function (e) {
         return e.offer.type === houseType.value;
       });
-  }
+    }
 
-    console.log(typeArray);
-
-    if(houseRooms.value != 'any') {
+    if (houseRooms.value != 'any') {
       var typeArrayRes = typeArray.filter(function (e) {
         return e.offer.rooms === Number(houseRooms.value);
       });
@@ -35,7 +31,7 @@
       console.log(typeArrayRes);
     }
 
-    if(houseQuests.value != 'any') {
+    if (houseQuests.value != 'any') {
       var typeArrayRes = typeArray.filter(function (e) {
         return e.offer.guests === Number(houseQuests.value);
       });
