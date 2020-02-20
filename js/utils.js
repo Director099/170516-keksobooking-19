@@ -2,6 +2,12 @@
 
 (function () {
   var ESC_KEY_CODE = 27;
+  var formPublication = document.querySelector('.ad-form');
+  var formFieldset = formPublication.querySelectorAll('fieldset');
+
+  for (var i = 0; i < formFieldset.length; i++) {
+    formFieldset[i].setAttribute('disabled', '');
+  }
 
   window.utils = {
     isEscEvent: function (evt) {

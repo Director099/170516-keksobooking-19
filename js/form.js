@@ -10,10 +10,10 @@
   var inputsRequired = noticeForm.querySelectorAll('input[required]');
   var fieldType = noticeForm.querySelector('#type');
   var mainBlock = document.querySelector('main');
-  var inputAvatar = document.querySelector('#avatar');
-  var imgAvatar = document.querySelector('.ad-form-header__preview img');
-  var inputImages = document.querySelector('#images');
-  var imgApartament = document.querySelector('.ad-form__photo');
+  var inputAvatar = noticeForm.querySelector('#avatar');
+  var imgAvatar = noticeForm.querySelector('.ad-form-header__preview img');
+  var inputImages = noticeForm.querySelector('#images');
+  var imgApartament = noticeForm.querySelector('.ad-form__photo');
 
   function closeModal(evt) {
     var mainModalSuccess = mainBlock.querySelector('.success');
