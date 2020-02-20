@@ -10,7 +10,10 @@
   var inputsRequired = noticeForm.querySelectorAll('input[required]');
   var fieldType = noticeForm.querySelector('#type');
   var mainBlock = document.querySelector('main');
-
+  var inputAvatar = document.querySelector('#avatar');
+  var imgAvatar = document.querySelector('.ad-form-header__preview img');
+  var inputImages = document.querySelector('#images');
+  var imgApartament = document.querySelector('.ad-form__photo');
 
   function closeModal(evt) {
     var mainModalSuccess = mainBlock.querySelector('.success');
@@ -25,7 +28,7 @@
     }
 
     document.removeEventListener('click', closeModal);
-    if(window.utils.isEscEvent(evt)) {
+    if (window.utils.isEscEvent(evt)) {
       document.removeEventListener('keydown', closeModal);
     }
   }
@@ -121,6 +124,14 @@
     } else if (value !== Number(capacity.value)) {
       capacity.value = e.target.value;
     }
+  });
+
+  inputAvatar.addEventListener('change', function () {
+    window.fileField.addPicture(inputAvatar, true, imgAvatar);
+  });
+
+  inputImages.addEventListener('change', function () {
+    window.fileField.addPicture(inputImages, false, imgApartament);
   });
 
   fieldType.addEventListener('change', validationTypeHouse);

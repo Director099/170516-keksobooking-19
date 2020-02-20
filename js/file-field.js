@@ -24,7 +24,7 @@
           newPreview.src = reader.result;
           newPreview.width = 70;
           newPreview.height = 70;
-          newPreview.style = 'object-fit: cover; margin-bottom: 8px; margin-right: 10px;';
+          newPreview.style = 'object-fit: cover; margin-bottom: 8px; margin-right: 10px; border-radius: 5px';
           newPreview.alt = 'Превью';
           preview.insertBefore(newPreview, preview.children[preview.children.length - 1]);
         }
@@ -34,7 +34,15 @@
     }
   }
 
-  // function(imgBlock) {
+  // function removePicture(imgBlock) {
   //   var pictures = imgBlock.querySelectorAll('img');
+  //   pictures.forEach(function (picture) {
+  //     imgBlock.removeChild(picture);
+  //   });
   // }
+
+  window.fileField = {
+    addPicture: addPicture,
+    // removePicture: removePicture
+  };
 })();
