@@ -8,6 +8,11 @@
   var noticeForm = document.querySelector('.ad-form');
   var formElems = noticeForm.querySelectorAll('fieldset[disabled]');
 
+  /**
+   * @description - Активация карточки
+   * @returns {boolean}
+   */
+
   function activateCard() {
     if (!map.classList.contains('map--faded')) {
       return false;
@@ -28,6 +33,11 @@
       x: evt.clientX,
       y: evt.clientY
     };
+
+    /**
+     * @description - Удерживание мыши
+     * @param moveEvt - Расположение(Движение) мыши
+     */
 
     function onMouseMove(moveEvt) {
       moveEvt.preventDefault();
@@ -62,6 +72,11 @@
         mainPin.style.top = movePositionPins.y + 'px';
       }
     }
+
+    /**
+     * @description - Отпускаем мышь
+     * @param upEvt - Конечное остановка мыши
+     */
 
     function onMouseUp(upEvt) {
       upEvt.preventDefault();

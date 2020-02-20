@@ -3,6 +3,13 @@
 (function () {
   var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
+  /**
+   * @description - Добавление изображение после загрузки файла
+   * @param fileChooser - Элемент при добавление файла
+   * @param isPreview{boolean} - Проверка на аватарку или нет
+   * @param preview - Вывод изображения после загрузки
+   */
+
   function addPicture(fileChooser, isPreview, preview) {
     var file = fileChooser.files[0];
 

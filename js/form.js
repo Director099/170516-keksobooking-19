@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var MAX_NUMBER_GUESTS = 100;
   var noticeForm = document.querySelector('.ad-form');
   var timeIn = noticeForm.querySelector('#timein');
   var timeOut = noticeForm.querySelector('#timeout');
@@ -14,6 +15,11 @@
   var imgAvatar = noticeForm.querySelector('.ad-form-header__preview img');
   var inputImages = noticeForm.querySelector('#images');
   var imgApartament = noticeForm.querySelector('.ad-form__photo');
+
+  /**
+   * @description - Закрытие модального окна после отправки формы
+   * @param evt - Возвращает событие
+   */
 
   function closeModal(evt) {
     var mainModalSuccess = mainBlock.querySelector('.success');
@@ -33,6 +39,9 @@
     }
   }
 
+  /**
+   * @description - Показывает модальное окно после успешной отправки
+   */
 
   function showSuccess() {
     var templateSucces = document.querySelector('#success').content.cloneNode(true);
@@ -41,6 +50,10 @@
     document.addEventListener('keydown', closeModal);
   }
 
+  /**
+   * @description - Показывает модальное окно ошибки после отправки формы
+   */
+
   function showError() {
     var templateError = document.querySelector('#error').content.cloneNode(true);
     mainBlock.appendChild(templateError);
@@ -48,6 +61,9 @@
     document.addEventListener('keydown', closeModal);
   }
 
+  /**
+   * @description - валидация типа жилья
+   */
 
   function validationTypeHouse() {
     var price = document.querySelector('#price');
@@ -63,6 +79,11 @@
     price.min = typeSelect[fieldType.value];
     price.max = maxPrice;
   }
+
+  /**
+   * @description - валидация поля названия жилья
+   * @param e - Возвращает элемент input
+   */
 
   function inputsValidition(e) {
     var elementText = document.createElement('span');
@@ -97,29 +118,27 @@
   }
 
   timeIn.addEventListener('change', function () {
-    if (timeIn.value !== timeOut.value) {
-      timeOut.value = timeIn.value;
-    }
+    timeOut.value = timeIn.value;
   });
+
   timeOut.addEventListener('change', function () {
-    if (timeOut.value !== timeIn.value) {
-      timeIn.value = timeOut.value;
-    }
+    timeIn.value = timeOut.value;
   });
+
   roomNumber.addEventListener('change', function (e) {
     var value = Number(e.target.value);
 
     for (var i = 0; i < optionCapacity.length; i++) {
       optionCapacity[i].style.display = 'none';
 
-      if (Number(optionCapacity[i].value) === 0 && value === 100) {
+      if (Number(optionCapacity[i].value) === 0 && value === MAX_NUMBER_GUESTS) {
         optionCapacity[i].style.display = 'block';
-      } else if (Number(optionCapacity[i].value) <= value && Number(optionCapacity[i].value) !== 0 && value !== 100) {
+      } else if (Number(optionCapacity[i].value) <= value && Number(optionCapacity[i].value) !== 0 && value !== MAX_NUMBER_GUESTS) {
         optionCapacity[i].style.display = 'block';
       }
     }
 
-    if (value >= 100) {
+    if (value >= MAX_NUMBER_GUESTS) {
       capacity.value = 0;
     } else if (value !== Number(capacity.value)) {
       capacity.value = e.target.value;

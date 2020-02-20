@@ -14,6 +14,10 @@
         bungalo: 'Бунгало'
       };
 
+      /**
+       * @description Удаление/закрытие попап карточки
+       */
+
       function closePopup() {
         var popup = document.querySelector('.popup');
         if (popup) {
@@ -40,6 +44,7 @@
         popupPinTemplate.querySelector('.popup__photos').appendChild(elementPicturesImg);
         popupPinTemplate.querySelector('.popup__photos').appendChild(elementPicturesImg).src = item.offer.photos[j];
         popupPinTemplate.querySelector('.popup__photos').appendChild(elementPicturesImg).alt = 'Фотография жилья';
+        popupPinTemplate.querySelectorAll('.popup__photos img')[j].style = 'margin-right: 5px; margin-bottom: 5px';
       }
 
       popupPinTemplate.querySelector('.popup__avatar').src = item.author.avatar;
