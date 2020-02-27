@@ -10,42 +10,30 @@
 
   var pinsArray = []; // Для фильтрации данных, нужно после загрузки сохранить их чтобы не загружать каждый раз
 
-  function updatePins() {
+  function updatePins(evt) {
     var mapPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     for (var i = 0; i < mapPins.length; i++) {
       mapPins[i].remove();
     }
 
+    /**
+     *
+     * @param filterValue - Значение фильтра которое кликнули
+     * @param itemValue - Ключ массива
+     * @returns {boolean} - Возвращаем boolean на соответсвие параметров
+     */
 
-    if (houseType.value != 'any') {
-      var typeArray = pinsArray.filter(function (e) {
-        return e.offer.type === houseType.value;
-      });
+    function setFilterValues(filterValue, itemValue) {
+      return filterValue === 'any' || itemValue === filterValue;
     }
 
-    if (houseRooms.value != 'any') {
-      var typeArrayRes = typeArray.filter(function (e) {
-        return e.offer.rooms === Number(houseRooms.value);
-      });
-      typeArray = typeArrayRes;
-      console.log(typeArrayRes);
-    }
+    var typeArray = pinsArray.filter(function (e) {
+      return setFilterValues(houseType.value, e.offer.type)
+        && setFilterValues(houseRooms.value, e.offer.rooms.toString())
+        && setFilterValues(houseQuests.value, e.offer.guests.toString());
+    });
 
-    if (houseQuests.value != 'any') {
-      var typeArrayRes = typeArray.filter(function (e) {
-        return e.offer.guests === Number(houseQuests.value);
-      });
-      console.log(typeArrayRes);
-      typeArray = typeArrayRes;
-    }
-
-    console.log(typeArray);
-
-    // var filterPins = typeArray.concat(roomsArray).concat(questsArray);
-    // var uniquePins = filterPins.filter(function (it, i) {
-    //   // return filterPins.indexOf(it) === i;
-    // });
-
+    console.log(pinsArray[0]);
     window.createPins(typeArray);
   }
 
@@ -54,8 +42,8 @@
     window.createPins(pinsArray);
   }
 
-  form.addEventListener('change', function () {
-    updatePins();
+  form.addEventListener('change', function (evt) {
+    updatePins(evt);
   });
 
   mainPin.addEventListener('click', function () {
