@@ -10,16 +10,16 @@
 
   var pinsArray = []; // Для фильтрации данных, нужно после загрузки сохранить их чтобы не загружать каждый раз
 
-  function updatePins(evt) {
+  function updatePins() {
     var mapPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     for (var i = 0; i < mapPins.length; i++) {
       mapPins[i].remove();
     }
 
     /**
-     *
+     * @description - Фильтрация по типу/колличество гостей/комнат
      * @param filterValue - Значение фильтра которое кликнули
-     * @param itemValue - Ключ массива
+     * @param itemValue - Сравниваю со значением массива
      * @returns {boolean} - Возвращаем boolean на соответсвие параметров
      */
 
@@ -27,13 +27,59 @@
       return filterValue === 'any' || itemValue === filterValue;
     }
 
-    var typeArray = pinsArray.filter(function (e) {
-      return setFilterValues(houseType.value, e.offer.type)
-        && setFilterValues(houseRooms.value, e.offer.rooms.toString())
-        && setFilterValues(houseQuests.value, e.offer.guests.toString());
+    /**
+     * @description - Фильтрация по типу/колличество гостей/комнат
+     * @param filterValue - Значение фильтра которое кликнули
+     * @param itemValue - Сравниваю со значением массива
+     * @returns {boolean} - Возвращаем boolean на соответсвие параметров
+     */
+
+    function setFilterPrice(filterValue, itemValue) {
+      switch (filterValue) {
+        case 'middle':
+          return itemValue >= 10000 && itemValue <= 50000;
+          break;
+        case 'low':
+          return itemValue <= 10000;
+          break;
+        case 'high':
+          return itemValue >= 50000;
+          break;
+        default: return true;
+      }
+    }
+
+    var houseFeatures = document.querySelectorAll('.map__checkbox:checked');
+
+    var arrHouseFeatures = Array.from(houseFeatures).map(function (elem) {
+      return elem.value;
     });
 
-    console.log(pinsArray[0]);
+    console.log(arrHouseFeatures);
+
+    function setFilterFeatures(filterValue, itemValue) {
+
+      return filterValue.every(function (itemValue, i, array) {
+        // console.log(filterValue);
+        console.log(itemValue, i, array);
+        return filterValue == array
+      });
+    }
+
+
+
+    var typeArray = pinsArray.filter(function (e) {
+      console.log(setFilterFeatures(arrHouseFeatures, pinsArray));
+      return setFilterFeatures(arrHouseFeatures, pinsArray);
+      // setFilterValues(houseType.value, e.offer.type)
+      //   && setFilterValues(houseRooms.value, e.offer.rooms.toString())
+      //   && setFilterValues(houseQuests.value, e.offer.guests.toString())
+      //   && setFilterPrice(houseTypePrice.value, e.offer.price)
+      //   && setFilterFeatures(arrHouseFeatures, e.offer.features);
+
+    });
+
+    // console.log(pinsArray[0]);
     window.createPins(typeArray);
   }
 
@@ -42,9 +88,7 @@
     window.createPins(pinsArray);
   }
 
-  form.addEventListener('change', function (evt) {
-    updatePins(evt);
-  });
+  form.addEventListener('change', updatePins);
 
   mainPin.addEventListener('click', function () {
     window.backend.load(successHandler);
