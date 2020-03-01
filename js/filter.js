@@ -55,22 +55,27 @@
       return elem.value;
     });
 
-    console.log(arrHouseFeatures);
+    // console.log(arrHouseFeatures);
+
+    // function setFilterFeatures(filterValue, itemValue) {
+    //
+    //   return filterValue.every(function (itemValue, i, array) {
+    //     // console.log(filterValue);
+    //     console.log(itemValue, i, array);
+    //     return filterValue == array
+    //   });
+    // }
 
     function setFilterFeatures(filterValue, itemValue) {
-
-      return filterValue.every(function (itemValue, i, array) {
-        // console.log(filterValue);
-        console.log(itemValue, i, array);
-        return filterValue == array
+      return filterValue.filter(function(e) {
+        return itemValue.indexOf(e) !== -1;
       });
     }
 
 
-
     var typeArray = pinsArray.filter(function (e) {
-      console.log(setFilterFeatures(arrHouseFeatures, pinsArray));
-      return setFilterFeatures(arrHouseFeatures, pinsArray);
+      console.log(arrHouseFeatures, e.offer.features);
+      return setFilterFeatures(arrHouseFeatures, e.offer.features);
       // setFilterValues(houseType.value, e.offer.type)
       //   && setFilterValues(houseRooms.value, e.offer.rooms.toString())
       //   && setFilterValues(houseQuests.value, e.offer.guests.toString())
