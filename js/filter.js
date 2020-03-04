@@ -50,41 +50,28 @@
     }
 
     var houseFeatures = document.querySelectorAll('.map__checkbox:checked');
-
     var arrHouseFeatures = Array.from(houseFeatures).map(function (elem) {
       return elem.value;
     });
 
-    // console.log(arrHouseFeatures);
-
-    // function setFilterFeatures(filterValue, itemValue) {
-    //
-    //   return filterValue.every(function (itemValue, i, array) {
-    //     // console.log(filterValue);
-    //     console.log(itemValue, i, array);
-    //     return filterValue == array
-    //   });
-    // }
-
     function setFilterFeatures(filterValue, itemValue) {
-      return filterValue.filter(function(e) {
-        return itemValue.indexOf(e) !== -1;
+      return filterValue.every(function (elemFilter) {
+        return itemValue.some(function (elemValue) {
+          return elemFilter === elemValue;
+        })
       });
     }
 
 
     var typeArray = pinsArray.filter(function (e) {
-      console.log(arrHouseFeatures, e.offer.features);
-      return setFilterFeatures(arrHouseFeatures, e.offer.features);
-      // setFilterValues(houseType.value, e.offer.type)
-      //   && setFilterValues(houseRooms.value, e.offer.rooms.toString())
-      //   && setFilterValues(houseQuests.value, e.offer.guests.toString())
-      //   && setFilterPrice(houseTypePrice.value, e.offer.price)
-      //   && setFilterFeatures(arrHouseFeatures, e.offer.features);
-
+      return setFilterValues(houseType.value, e.offer.type)
+        && setFilterValues(houseRooms.value, e.offer.rooms.toString())
+        && setFilterValues(houseQuests.value, e.offer.guests.toString())
+        && setFilterPrice(houseTypePrice.value, e.offer.price)
+        && setFilterFeatures(arrHouseFeatures, e.offer.features)
+        && setFilterFeatures(arrHouseFeatures, e.offer.features);
     });
 
-    // console.log(pinsArray[0]);
     window.createPins(typeArray);
   }
 
