@@ -3,10 +3,7 @@
 (function () {
   var mapPins = document.querySelector('.map__pins');
   var mainPin = document.querySelector('.map__pin--main');
-  var map = document.querySelector('.map');
-  var noticeForm = document.querySelector('.ad-form');
-  var formElems = noticeForm.querySelectorAll('fieldset[disabled]');
-  var fieldAddress = noticeForm.querySelector('#address');
+  var fieldAddress = document.querySelector('#address');
 
   var pinSize = {
     width: mainPin.offsetWidth,
@@ -18,29 +15,7 @@
     y: mainPin.offsetTop
   };
 
-  fieldAddress.value = positionPins.x + ' , ' + positionPins.y;
-
-  /**
-   * @description - Активация карточки
-   * @returns {boolean}
-   */
-
-  function activateCard() {
-    if (!map.classList.contains('map--faded')) {
-      return false;
-    }
-    for (var i = 0; i < formElems.length; i++) {
-      formElems[i].removeAttribute('disabled');
-    }
-    map.classList.remove('map--faded');
-    noticeForm.classList.remove('ad-form--disabled');
-
-    // window.filter.successHandler(data);
-    // mainPin.addEventListener('click', function () {
-    //   window.backend.load(window.filter.successHandler);
-    // });
-    return true;
-  }
+  // fieldAddress.value = positionPins.x + ' , ' + positionPins.y;
 
   mainPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -79,7 +54,7 @@
         MAX: 630
       };
 
-      fieldAddress.value = movePositionPins.x + ' , ' + (movePositionPins.y + pinSize.height); // вынести в модуль form.js
+      // fieldAddress.value = movePositionPins.x + ' , ' + (movePositionPins.y + pinSize.height); // вынести в модуль form.js
 
 
       if (movePositionPins.x >= -(pinSize.width / 2) &&
@@ -112,7 +87,7 @@
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
-    document.addEventListener('click', activateCard);
+
   });
   mainPin.addEventListener('keydown', function (evt) {
     if(window.utils.isEnterEvent(evt)) {

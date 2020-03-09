@@ -70,17 +70,22 @@
     window.render.createPins(typeArray);
   }
 
+  /**
+   * @description Обработчик успеха, из полученных данных загружаю создаю пины
+   * @param data - Получаю из аякса массив обьектов
+   */
+
   function successHandler(data) {
     pinsArray = data;
     window.render.createPins(pinsArray);
   }
 
   form.addEventListener('change', updatePins);
-  mainPin.addEventListener('click', function () {
-    window.backend.load(successHandler);
-  });
+  // mainPin.addEventListener('click', function () {
+  //   window.backend.load(successHandler);
+  // });
 
-  // window.filter = {
-  //   successHandler: successHandler
-  // }
+  window.filter = {
+    successHandler: successHandler
+  }
 })();
