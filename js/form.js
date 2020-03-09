@@ -1,8 +1,11 @@
 'use strict';
 
-(function () {
+(function ()  {
   var MAX_NUMBER_GUESTS = 100;
-  var noticeForm = document.querySelector('.ad-form');
+  var DEFAULT_UPLOAD_IMG = 'img/muffin-grey.svg';
+  var noticeForm = document.querySelector('.ad-form')
+  var mainBlock = document.querySelector('main');
+  var imgPreview = noticeForm.querySelector('.ad-form-header__preview img');
   var timeIn = noticeForm.querySelector('#timein');
   var timeOut = noticeForm.querySelector('#timeout');
   var roomNumber = noticeForm.querySelector('#room_number');
@@ -10,11 +13,13 @@
   var optionCapacity = capacity.querySelectorAll('option');
   var inputsRequired = noticeForm.querySelectorAll('input[required]');
   var fieldType = noticeForm.querySelector('#type');
-  var mainBlock = document.querySelector('main');
   var inputAvatar = noticeForm.querySelector('#avatar');
+
   var imgAvatar = noticeForm.querySelector('.ad-form-header__preview img');
   var inputImages = noticeForm.querySelector('#images');
   var imgApartament = noticeForm.querySelector('.ad-form__photo');
+  var photoBlock = noticeForm.querySelector('.ad-form__photo-container');
+  var btnReset = noticeForm.querySelector('.ad-form__reset');
 
   /**
    * @description - Закрытие модального окна после отправки формы
@@ -151,6 +156,18 @@
 
   inputImages.addEventListener('change', function () {
     window.fileField.addPicture(inputImages, false, imgApartament);
+  });
+
+  btnReset.addEventListener('click', function () {
+    var errorText = document.querySelectorAll('.field-error__text');
+    if (errorText) {
+      errorText.forEach(function (elem) {
+        elem.remove();
+      })
+    }
+
+    imgPreview.src = DEFAULT_UPLOAD_IMG;
+    window.fileField.removePicture(photoBlock);
   });
 
   fieldType.addEventListener('change', validationTypeHouse);

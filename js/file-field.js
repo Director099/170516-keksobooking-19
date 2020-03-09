@@ -41,15 +41,15 @@
     }
   }
 
-  // function removePicture(imgBlock) {
-  //   var pictures = imgBlock.querySelectorAll('img');
-  //   pictures.forEach(function (picture) {
-  //     imgBlock.removeChild(picture);
-  //   });
-  // }
+  function removePicture(imgBlock) {
+    var pictures = imgBlock.querySelectorAll('img');
+    pictures.forEach(function (picture) {
+      picture.remove();
+    });
+  }
 
   window.fileField = {
     addPicture: addPicture,
-    // removePicture: removePicture
+    removePicture: removePicture
   };
 })();

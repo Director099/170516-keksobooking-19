@@ -1,12 +1,24 @@
 'use strict';
 
 (function () {
-  var fieldAddress = document.querySelector('#address');
   var mapPins = document.querySelector('.map__pins');
   var mainPin = document.querySelector('.map__pin--main');
   var map = document.querySelector('.map');
   var noticeForm = document.querySelector('.ad-form');
   var formElems = noticeForm.querySelectorAll('fieldset[disabled]');
+  var fieldAddress = noticeForm.querySelector('#address');
+
+  var pinSize = {
+    width: mainPin.offsetWidth,
+    height: mainPin.offsetHeight + 17
+  };
+
+  var positionPins = {
+    x: mainPin.offsetLeft,
+    y: mainPin.offsetTop
+  };
+
+  fieldAddress.value = positionPins.x + ' , ' + positionPins.y;
 
   /**
    * @description - Активация карточки
@@ -22,6 +34,11 @@
     }
     map.classList.remove('map--faded');
     noticeForm.classList.remove('ad-form--disabled');
+
+    // window.filter.successHandler(data);
+    // mainPin.addEventListener('click', function () {
+    //   window.backend.load(window.filter.successHandler);
+    // });
     return true;
   }
 
@@ -39,7 +56,7 @@
      * @param moveEvt - Расположение(Движение) мыши
      */
 
-    function onMouseMove(moveEvt) {
+    function onMouseMove(moveEvt)   {
       moveEvt.preventDefault();
       dragged = true;
       var shift = {
@@ -57,17 +74,18 @@
         y: mainPin.offsetTop - shift.y
       };
 
-      fieldAddress.value = movePositionPins.x + ' , ' + movePositionPins.y;
-
-      var pinOffset = {
-        width: mainPin.offsetWidth,
-        height: mainPin.offsetHeight
+      var MOVE_ZONE = {
+        MIN: 130,
+        MAX: 630
       };
 
-      if (movePositionPins.x >= 0 &&
-        movePositionPins.x <= mapPins.offsetWidth - pinOffset.width &&
-        movePositionPins.y >= 0 &&
-        movePositionPins.y <= mapPins.offsetHeight - pinOffset.height) {
+      fieldAddress.value = movePositionPins.x + ' , ' + (movePositionPins.y + pinSize.height); // вынести в модуль form.js
+
+
+      if (movePositionPins.x >= -(pinSize.width / 2) &&
+        movePositionPins.x <= mapPins.offsetWidth - (pinSize.width / 2) &&
+        movePositionPins.y >= MOVE_ZONE.MIN - pinSize.height &&
+        movePositionPins.y <= MOVE_ZONE.MAX - pinSize.height) {
         mainPin.style.left = movePositionPins.x + 'px';
         mainPin.style.top = movePositionPins.y + 'px';
       }
@@ -95,5 +113,10 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
     document.addEventListener('click', activateCard);
+  });
+  mainPin.addEventListener('keydown', function (evt) {
+    if(window.utils.isEnterEvent(evt)) {
+      activateCard();
+    }
   });
 })();

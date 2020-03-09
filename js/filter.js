@@ -11,11 +11,7 @@
   var pinsArray = []; // Для фильтрации данных, нужно после загрузки сохранить их чтобы не загружать каждый раз
 
   function updatePins() {
-    var mapPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-    for (var i = 0; i < mapPins.length; i++) {
-      mapPins[i].remove();
-    }
-
+    window.render.removePins();
     /**
      * @description - Фильтрация по типу/колличество гостей/комнат
      * @param filterValue - Значение фильтра которое кликнули
@@ -62,7 +58,6 @@
       });
     }
 
-
     var typeArray = pinsArray.filter(function (e) {
       return setFilterValues(houseType.value, e.offer.type)
         && setFilterValues(houseRooms.value, e.offer.rooms.toString())
@@ -72,17 +67,20 @@
         && setFilterFeatures(arrHouseFeatures, e.offer.features);
     });
 
-    window.createPins(typeArray);
+    window.render.createPins(typeArray);
   }
 
   function successHandler(data) {
     pinsArray = data;
-    window.createPins(pinsArray);
+    window.render.createPins(pinsArray);
   }
 
   form.addEventListener('change', updatePins);
-
   mainPin.addEventListener('click', function () {
     window.backend.load(successHandler);
   });
+
+  // window.filter = {
+  //   successHandler: successHandler
+  // }
 })();

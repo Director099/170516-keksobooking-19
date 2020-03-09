@@ -1,11 +1,21 @@
 'use strict';
 
 (function () {
-  window.createPins = function (cardOffers) {
+  function removePins() {
+    var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    if (pins) {
+      for (var i = 0; i < pins.length; i++) {
+        pins[i].remove();
+      }
+    }
+  }
+
+  function createPins(cardOffers) {
     var templateContent = document.querySelector('#pin').content;
     var mapPins = document.querySelector('.map__pins');
     var createFragment = document.createDocumentFragment();
     var MAX_PINS = 5;
+
     for (var i = 0; i < MAX_PINS; i++) {
       var pinMapTemplate = templateContent.querySelector('.map__pin').cloneNode(true);
       var widthPin = pinMapTemplate.querySelector('img').width;
@@ -20,5 +30,10 @@
         pinMapTemplate.addEventListener('click', window.card(cardOffers[i]));
       }
     }
-  };
+  }
+
+  window.render = {
+    createPins: createPins,
+    removePins: removePins
+  }
 })();
