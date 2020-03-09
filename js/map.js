@@ -1,11 +1,16 @@
 'use strict';
 
 (function () {
-
   var mainPin = document.querySelector('.map__pin--main');
   var map = document.querySelector('.map');
   var noticeForm = document.querySelector('.ad-form');
   var formElems = noticeForm.querySelectorAll('fieldset[disabled]');
+  var formFieldset = noticeForm.querySelectorAll('fieldset');
+
+  for (var i = 0; i < formFieldset.length; i++) {
+    formFieldset[i].setAttribute('disabled', '');
+  }
+
   /**
    * @description - Активация карточки
    * @returns {boolean}
