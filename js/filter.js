@@ -1,12 +1,15 @@
 'use strict';
 
 (function () {
-  var mainPin = document.querySelector('.map__pin--main');
   var form = document.querySelector('.map__filters');
   var houseType = document.querySelector('#housing-type');
   var houseRooms = document.querySelector('#housing-rooms');
   var houseQuests = document.querySelector('#housing-guests');
   var houseTypePrice = document.querySelector('#housing-price');
+
+  function resetFilter() {
+    form.reset();
+  }
 
   function updatePins() {
     window.render.removePins();
@@ -82,6 +85,7 @@
 
   window.filter = {
     pinsArray: [],
-    successHandler: successHandler
+    successHandler: successHandler,
+    resetFilter: resetFilter
   }
 })();

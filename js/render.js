@@ -27,7 +27,7 @@
         pinMapTemplate.style.top = cardOffers[i].location.y - heightPin + 'px';
         createFragment.appendChild(pinMapTemplate);
         mapPins.appendChild(createFragment);
-        pinMapTemplate.addEventListener('click', window.card(cardOffers[i]));
+        pinMapTemplate.addEventListener('click', window.card.createCard(cardOffers[i]));
       }
     }
   }

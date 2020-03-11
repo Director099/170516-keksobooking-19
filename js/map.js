@@ -6,10 +6,6 @@
   var noticeForm = document.querySelector('.ad-form');
   var formFieldset = noticeForm.querySelectorAll('fieldset');
 
-  for (var i = 0; i < formFieldset.length; i++) {
-    formFieldset[i].setAttribute('disabled', '');
-  }
-
   /**
    * @description - Активация карточки
    * @returns {boolean}
@@ -30,5 +26,22 @@
     return true;
   }
 
+  function deactivateCard() {
+    if (map.classList.contains('map--faded')) {
+      return false;
+    }
+    for (var i = 0; i < formFieldset.length; i++) {
+      formFieldset[i].setAttribute('disabled', '');
+    }
+    map.classList.add('map--faded');
+    noticeForm.classList.add('ad-form--disabled');
+  }
+
+  deactivateCard();
+
   mainPin.addEventListener('click', activateCard);
+
+  window.map = {
+    deactivateCard: deactivateCard
+  }
 }());

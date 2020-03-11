@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  window.card = function (item) {
+  function createCard(item) {
     return function () {
       var createFragment = document.createDocumentFragment();
       var templateContent = document.querySelector('#card').content;
@@ -14,18 +14,7 @@
         bungalo: 'Бунгало'
       };
 
-      /**
-       * @description Удаление/закрытие попап карточки
-       */
-
-      function closePopup() {
-        var popup = document.querySelector('.popup');
-        if (popup) {
-          popup.remove();
-        }
-      }
-
-      closePopup();
+      window.card.closePopup();
 
       popupPinTemplate.querySelector('.popup__features').innerHTML = '';
       popupPinTemplate.querySelector('.popup__photos').innerHTML = '';
@@ -68,4 +57,19 @@
       });
     };
   };
+
+  /**
+   * @description Удаление/закрытие попап карточки
+   */
+
+  function closePopup() {
+    var popup = document.querySelector('.popup');
+    if (popup) {
+      popup.remove();
+    }
+  }
+  window.card = {
+    createCard: createCard,
+    closePopup: closePopup
+  }
 })();

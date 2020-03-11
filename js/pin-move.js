@@ -15,6 +15,10 @@
     y: mainPin.offsetTop
   };
 
+  function resetPositionPin() {
+    mainPin.style = 'left:' + positionPins.x + 'px;' + 'top:' + positionPins.y + 'px';
+  }
+
   // fieldAddress.value = positionPins.x + ' , ' + positionPins.y;
 
   mainPin.addEventListener('mousedown', function (evt) {
@@ -94,4 +98,8 @@
       activateCard();
     }
   });
+
+  window.pinMove = {
+    resetPositionPin: resetPositionPin
+  }
 })();

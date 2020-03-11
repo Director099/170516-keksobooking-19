@@ -14,7 +14,6 @@
   var inputsRequired = noticeForm.querySelectorAll('input[required]');
   var fieldType = noticeForm.querySelector('#type');
   var inputAvatar = noticeForm.querySelector('#avatar');
-
   var imgAvatar = noticeForm.querySelector('.ad-form-header__preview img');
   var inputImages = noticeForm.querySelector('#images');
   var imgApartament = noticeForm.querySelector('.ad-form__photo');
@@ -25,6 +24,28 @@
    * @description - Закрытие модального окна после отправки формы
    * @param evt - Возвращает событие
    */
+
+  function resetForm() {
+    var errorText = document.querySelectorAll('.field-error__text');
+    if (errorText) {
+      errorText.forEach(function (elem) {
+        elem.remove();
+      })
+    }
+
+    imgPreview.src = DEFAULT_UPLOAD_IMG;
+    window.fileField.removePicture(photoBlock);
+    noticeForm.reset();
+  }
+
+  function resetMap() {
+    window.form.resetForm();
+    window.pinMove.resetPositionPin();
+    window.map.deactivateCard();
+    window.render.removePins();
+    window.filter.resetFilter();
+    window.card.closePopup();
+  }
 
   function closeModal(evt) {
     var mainModalSuccess = mainBlock.querySelector('.success');
@@ -51,6 +72,8 @@
   function showSuccess() {
     var templateSucces = document.querySelector('#success').content.cloneNode(true);
     mainBlock.appendChild(templateSucces);
+    resetMap();
+
     document.addEventListener('click', closeModal);
     document.addEventListener('keydown', closeModal);
   }
@@ -92,11 +115,11 @@
 
   function inputsValidition(e) {
     var elementText = document.createElement('span');
+    elementText.style.color = 'red';
     elementText.className = 'field-error__text';
     var elemError = e.target.closest('.ad-form__element');
     var fieldValue = e.target.value.length;
     e.preventDefault();
-    e.target.classList.add('field-error');
     if (!e.target.parentElement.querySelector('.field-error__text')) {
       e.target.parentElement.appendChild(elementText);
     }
@@ -158,21 +181,15 @@
     window.fileField.addPicture(inputImages, false, imgApartament);
   });
 
-  btnReset.addEventListener('click', function () {
-    var errorText = document.querySelectorAll('.field-error__text');
-    if (errorText) {
-      errorText.forEach(function (elem) {
-        elem.remove();
-      })
-    }
-
-    imgPreview.src = DEFAULT_UPLOAD_IMG;
-    window.fileField.removePicture(photoBlock);
-  });
+  btnReset.addEventListener('click', resetMap);
 
   fieldType.addEventListener('change', validationTypeHouse);
   noticeForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.upload(new FormData(noticeForm), showSuccess, showError);
   });
+
+  window.form = {
+    resetForm: resetForm
+  }
 })();
