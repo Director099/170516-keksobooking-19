@@ -4,7 +4,6 @@
   var mainPin = document.querySelector('.map__pin--main');
   var map = document.querySelector('.map');
   var noticeForm = document.querySelector('.ad-form');
-  var formElems = noticeForm.querySelectorAll('fieldset[disabled]');
   var formFieldset = noticeForm.querySelectorAll('fieldset');
 
   for (var i = 0; i < formFieldset.length; i++) {
@@ -17,6 +16,7 @@
    */
 
   function activateCard() {
+    var formElems = noticeForm.querySelectorAll('fieldset[disabled]');
     if (!map.classList.contains('map--faded')) {
       return false;
     }
@@ -25,10 +25,10 @@
     }
     map.classList.remove('map--faded');
     noticeForm.classList.remove('ad-form--disabled');
-    // window.backend.load(window.filter.successHandler);
+    window.backend.load(window.filter.successHandler);
 
     return true;
   }
 
   mainPin.addEventListener('click', activateCard);
-}())
+}());

@@ -8,8 +8,6 @@
   var houseQuests = document.querySelector('#housing-guests');
   var houseTypePrice = document.querySelector('#housing-price');
 
-  var pinsArray = []; // Для фильтрации данных, нужно после загрузки сохранить их чтобы не загружать каждый раз
-
   function updatePins() {
     window.render.removePins();
     /**
@@ -58,7 +56,7 @@
       });
     }
 
-    var typeArray = pinsArray.filter(function (e) {
+    var typeArray = window.filter.pinsArray.filter(function (e) {
       return setFilterValues(houseType.value, e.offer.type)
         && setFilterValues(houseRooms.value, e.offer.rooms.toString())
         && setFilterValues(houseQuests.value, e.offer.guests.toString())
@@ -76,16 +74,14 @@
    */
 
   function successHandler(data) {
-    pinsArray = data;
-    window.render.createPins(pinsArray);
+    window.filter.pinsArray = data;
+    window.render.createPins(window.filter.pinsArray);
   }
 
   form.addEventListener('change', updatePins);
-  // mainPin.addEventListener('click', function () {
-  //   window.backend.load(successHandler);
-  // });
 
   window.filter = {
+    pinsArray: [],
     successHandler: successHandler
   }
 })();
