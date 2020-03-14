@@ -12,6 +12,7 @@
   }
 
   function updatePins() {
+    window.card.closePopup();
     window.render.removePins();
     /**
      * @description - Фильтрация по типу/колличество гостей/комнат
@@ -71,6 +72,10 @@
     window.render.createPins(typeArray);
   }
 
+  var onHousingFilter = window.debounce(function () {
+    updatePins();
+  });
+
   /**
    * @description Обработчик успеха, из полученных данных загружаю создаю пины
    * @param data - Получаю из аякса массив обьектов
@@ -81,7 +86,7 @@
     window.render.createPins(window.filter.pinsArray);
   }
 
-  form.addEventListener('change', updatePins);
+  form.addEventListener('change', onHousingFilter);
 
   window.filter = {
     pinsArray: [],

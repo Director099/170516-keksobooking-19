@@ -117,6 +117,7 @@
     var elementText = document.createElement('span');
     elementText.style.color = 'red';
     elementText.className = 'field-error__text';
+    e.target.style.borderColor = 'red';
     var elemError = e.target.closest('.ad-form__element');
     var fieldValue = e.target.value.length;
     e.preventDefault();
@@ -136,13 +137,16 @@
       elemError.querySelector('.field-error__text').innerHTML = 'Жилье не может стоить меньше <br>' + e.target.min;
     } else if (e.target.validity.valid) {
       e.target.classList.remove('field-error__text');
+      e.target.style = '';
       e.target.parentElement.querySelector('.field-error__text').remove();
     }
   }
 
+  var onValidationInput = window.debounce(inputsValidition)
+
   for (var j = 0; j < inputsRequired.length; j++) {
     inputsRequired[j].addEventListener('invalid', inputsValidition);
-    inputsRequired[j].addEventListener('input', inputsValidition);
+    inputsRequired[j].addEventListener('input', onValidationInput);
   }
 
   timeIn.addEventListener('change', function () {
