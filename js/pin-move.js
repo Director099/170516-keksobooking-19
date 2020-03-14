@@ -21,7 +21,6 @@
 
   mainPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
-    var dragged = false;
 
     var startCoords = {
       x: evt.clientX,
@@ -33,9 +32,8 @@
      * @param moveEvt - Расположение(Движение) мыши
      */
 
-    function onMouseMove(moveEvt)   {
+    function onMouseMove(moveEvt) {
       moveEvt.preventDefault();
-      dragged = true;
       var shift = {
         x: startCoords.x - moveEvt.clientX,
         y: startCoords.y - moveEvt.clientY
@@ -79,29 +77,15 @@
       upEvt.preventDefault();
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
-
-      if (dragged) {
-        function onClickDefaults(evt) {
-          evt.preventDefault();
-          mainPin.removeEventListener('click', onClickDefaults);
-        }
-        mainPin.addEventListener('click', onClickDefaults);
-      }
     }
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
-
-  });
-  mainPin.addEventListener('keydown', function (evt) {
-    if(window.utils.isEnterEvent(evt)) {
-      activateCard();
-    }
   });
 
   window.pinMove = {
     resetPositionPin: resetPositionPin,
     positionPins: positionPins,
     pinSize: pinSize
-  }
+  };
 })();

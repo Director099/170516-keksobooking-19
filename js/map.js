@@ -9,10 +9,6 @@
 
   fieldAddress.value = window.pinMove.positionPins.x + ' , ' + window.pinMove.positionPins.y;
 
-  /**
-   * @description - Активация карточки
-   * @returns {boolean}
-   */
   function activateCard() {
     var formElems = noticeForm.querySelectorAll('fieldset[disabled]');
     if (!map.classList.contains('map--faded')) {
@@ -23,16 +19,10 @@
     }
     map.classList.remove('map--faded');
     noticeForm.classList.remove('ad-form--disabled');
-    fieldAddress.value = window.pinMove.positionPins.x + ' , ' + (window.pinMove.positionPins.y + window.pinMove.pinSize.height);
     window.backend.load(window.filter.successHandler);
 
     return true;
   }
-
-  /**
-   * @description - Сброс карточки
-   * @returns {boolean}
-   */
 
   function deactivateCard() {
     if (map.classList.contains('map--faded')) {
@@ -52,5 +42,5 @@
 
   window.map = {
     deactivateCard: deactivateCard
-  }
+  };
 }());

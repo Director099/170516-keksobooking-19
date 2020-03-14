@@ -56,7 +56,7 @@
         }
       });
     };
-  };
+  }
 
   /**
    * @description Удаление/закрытие попап карточки
@@ -71,5 +71,5 @@
   window.card = {
     createCard: createCard,
     closePopup: closePopup
-  }
+  };
 })();

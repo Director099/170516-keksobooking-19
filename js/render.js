@@ -35,5 +35,5 @@
   window.render = {
     createPins: createPins,
     removePins: removePins
-  }
+  };
 })();

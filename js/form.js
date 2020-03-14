@@ -1,9 +1,9 @@
 'use strict';
 
-(function ()  {
+(function () {
   var MAX_NUMBER_GUESTS = 100;
   var DEFAULT_UPLOAD_IMG = 'img/muffin-grey.svg';
-  var noticeForm = document.querySelector('.ad-form')
+  var noticeForm = document.querySelector('.ad-form');
   var mainBlock = document.querySelector('main');
   var imgPreview = noticeForm.querySelector('.ad-form-header__preview img');
   var timeIn = noticeForm.querySelector('#timein');
@@ -30,7 +30,7 @@
     if (errorText) {
       errorText.forEach(function (elem) {
         elem.remove();
-      })
+      });
     }
 
     imgPreview.src = DEFAULT_UPLOAD_IMG;
@@ -142,7 +142,7 @@
     }
   }
 
-  var onValidationInput = window.debounce(inputsValidition)
+  var onValidationInput = window.debounce(inputsValidition);
 
   for (var j = 0; j < inputsRequired.length; j++) {
     inputsRequired[j].addEventListener('invalid', inputsValidition);
@@ -195,5 +195,5 @@
 
   window.form = {
     resetForm: resetForm
-  }
+  };
 })();

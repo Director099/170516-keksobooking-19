@@ -14,6 +14,7 @@
   function updatePins() {
     window.card.closePopup();
     window.render.removePins();
+
     /**
      * @description - Фильтрация по типу/колличество гостей/комнат
      * @param filterValue - Значение фильтра которое кликнули
@@ -36,14 +37,12 @@
       switch (filterValue) {
         case 'middle':
           return itemValue >= 10000 && itemValue <= 50000;
-          break;
         case 'low':
           return itemValue <= 10000;
-          break;
         case 'high':
           return itemValue >= 50000;
-          break;
-        default: return true;
+        default:
+          return true;
       }
     }
 
@@ -56,7 +55,7 @@
       return filterValue.every(function (elemFilter) {
         return itemValue.some(function (elemValue) {
           return elemFilter === elemValue;
-        })
+        });
       });
     }
 
@@ -92,5 +91,5 @@
     pinsArray: [],
     successHandler: successHandler,
     resetFilter: resetFilter
-  }
+  };
 })();
