@@ -19,8 +19,6 @@
     mainPin.style = 'left:' + positionPins.x + 'px;' + 'top:' + positionPins.y + 'px';
   }
 
-  // fieldAddress.value = positionPins.x + ' , ' + positionPins.y;
-
   mainPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
     var dragged = false;
@@ -58,7 +56,9 @@
         MAX: 630
       };
 
-      // fieldAddress.value = movePositionPins.x + ' , ' + (movePositionPins.y + pinSize.height); // вынести в модуль form.js
+      if (fieldAddress) {
+        fieldAddress.value = movePositionPins.x + ' , ' + (movePositionPins.y + pinSize.height);
+      }
 
 
       if (movePositionPins.x >= -(pinSize.width / 2) &&
@@ -100,6 +100,8 @@
   });
 
   window.pinMove = {
-    resetPositionPin: resetPositionPin
+    resetPositionPin: resetPositionPin,
+    positionPins: positionPins,
+    pinSize: pinSize
   }
 })();
