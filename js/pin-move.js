@@ -1,6 +1,10 @@
 'use strict';
 
 (function () {
+  var MOVE_ZONE = {
+    MIN: 130,
+    MAX: 630
+  };
   var mapPins = document.querySelector('.map__pins');
   var mainPin = document.querySelector('.map__pin--main');
   var fieldAddress = document.querySelector('#address');
@@ -49,15 +53,9 @@
         y: mainPin.offsetTop - shift.y
       };
 
-      var MOVE_ZONE = {
-        MIN: 130,
-        MAX: 630
-      };
-
       if (fieldAddress) {
-        fieldAddress.value = movePositionPins.x + ' , ' + (movePositionPins.y + pinSize.height);
+        fieldAddress.value = Math.floor(movePositionPins.x + (pinSize.width / 2)) + ' , ' + (movePositionPins.y + pinSize.height);
       }
-
 
       if (movePositionPins.x >= -(pinSize.width / 2) &&
         movePositionPins.x <= mapPins.offsetWidth - (pinSize.width / 2) &&

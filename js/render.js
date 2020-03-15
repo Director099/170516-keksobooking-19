@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var MAX_PINS = 5;
   function removePins() {
     var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     if (pins) {
@@ -14,7 +15,7 @@
     var templateContent = document.querySelector('#pin').content;
     var mapPins = document.querySelector('.map__pins');
     var createFragment = document.createDocumentFragment();
-    var MAX_PINS = 5;
+
 
     for (var i = 0; i < MAX_PINS; i++) {
       var pinMapTemplate = templateContent.querySelector('.map__pin').cloneNode(true);

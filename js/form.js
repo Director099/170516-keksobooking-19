@@ -2,6 +2,7 @@
 
 (function () {
   var MAX_NUMBER_GUESTS = 100;
+  var MAX_PRICE = 1000000;
   var DEFAULT_UPLOAD_IMG = 'img/muffin-grey.svg';
   var noticeForm = document.querySelector('.ad-form');
   var mainBlock = document.querySelector('main');
@@ -95,7 +96,6 @@
 
   function validationTypeHouse() {
     var price = document.querySelector('#price');
-    var maxPrice = 1000000;
     var typeSelect = {
       flat: 1000,
       bungalo: 0,
@@ -105,7 +105,7 @@
 
     price.placeholder = typeSelect[fieldType.value];
     price.min = typeSelect[fieldType.value];
-    price.max = maxPrice;
+    price.max = MAX_PRICE;
   }
 
   /**
