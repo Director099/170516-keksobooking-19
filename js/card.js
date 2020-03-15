@@ -1,19 +1,19 @@
 'use strict';
 
 (function () {
+  var createFragment = document.createDocumentFragment();
+  var map = document.querySelector('.map');
+  var templateContent = document.querySelector('#card').content;
+  var popupPinTemplate = templateContent.querySelector('.popup').cloneNode(true);
+  var offerType = {
+    palace: 'Дворец',
+    flat: 'Квартира',
+    house: 'Дом',
+    bungalo: 'Бунгало'
+  };
+
   function createCard(item) {
     return function () {
-      var createFragment = document.createDocumentFragment();
-      var templateContent = document.querySelector('#card').content;
-      var map = document.querySelector('.map');
-      var popupPinTemplate = templateContent.querySelector('.popup').cloneNode(true);
-      var offerType = {
-        palace: 'Дворец',
-        flat: 'Квартира',
-        house: 'Дом',
-        bungalo: 'Бунгало'
-      };
-
       closePopup();
 
       popupPinTemplate.querySelector('.popup__features').innerHTML = '';
