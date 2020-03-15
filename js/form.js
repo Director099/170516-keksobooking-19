@@ -27,6 +27,8 @@
   var photoBlock = noticeForm.querySelector('.ad-form__photo-container');
   var btnReset = noticeForm.querySelector('.ad-form__reset');
   var price = document.querySelector('#price');
+  var templateSucces = document.querySelector('#success').content.cloneNode(true);
+  var templateError = document.querySelector('#error').content.cloneNode(true);
 
 
   /**
@@ -79,7 +81,6 @@
    */
 
   function showSuccess() {
-    var templateSucces = document.querySelector('#success').content.cloneNode(true);
     mainBlock.appendChild(templateSucces);
     resetMap();
 
@@ -92,7 +93,6 @@
    */
 
   function showError() {
-    var templateError = document.querySelector('#error').content.cloneNode(true);
     mainBlock.appendChild(templateError);
     document.addEventListener('click', closeModal);
     document.addEventListener('keydown', closeModal);

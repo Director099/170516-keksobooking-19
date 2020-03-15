@@ -6,6 +6,9 @@
     WIDTH: 50,
     HEIGHT: 70
   };
+  var createFragment = document.createDocumentFragment();
+  var templateContent = document.querySelector('#pin').content;
+  var mapPins = document.querySelector('.map__pins');
 
   function removePins() {
     var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
@@ -17,10 +20,6 @@
   }
 
   function createPins(cardOffers) {
-    var templateContent = document.querySelector('#pin').content;
-    var mapPins = document.querySelector('.map__pins');
-    var createFragment = document.createDocumentFragment();
-
     for (var i = 0; i < MAX_PINS; i++) {
       var pinMapTemplate = templateContent.querySelector('.map__pin').cloneNode(true);
       if (cardOffers[i]) {
