@@ -11,7 +11,8 @@
 
   var pinSize = {
     width: mainPin.offsetWidth,
-    height: mainPin.offsetHeight + 17
+    height: mainPin.offsetHeight,
+    tip: 17
   };
 
   var positionPins = {
@@ -54,13 +55,13 @@
       };
 
       if (fieldAddress) {
-        fieldAddress.value = Math.floor(movePositionPins.x + (pinSize.width / 2)) + ' , ' + (movePositionPins.y + pinSize.height);
+        fieldAddress.value = Math.floor(movePositionPins.x + (pinSize.width / 2)) + ' , ' + (movePositionPins.y + (pinSize.height + pinSize.tip));
       }
 
       if (movePositionPins.x >= -(pinSize.width / 2) &&
         movePositionPins.x <= mapPins.offsetWidth - (pinSize.width / 2) &&
-        movePositionPins.y >= MOVE_ZONE.MIN - pinSize.height &&
-        movePositionPins.y <= MOVE_ZONE.MAX - pinSize.height) {
+        movePositionPins.y >= MOVE_ZONE.MIN - (pinSize.height + pinSize.tip) &&
+        movePositionPins.y <= MOVE_ZONE.MAX - (pinSize.height + pinSize.tip)) {
         mainPin.style.left = movePositionPins.x + 'px';
         mainPin.style.top = movePositionPins.y + 'px';
       }

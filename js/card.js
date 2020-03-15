@@ -19,21 +19,17 @@
       popupPinTemplate.querySelector('.popup__features').innerHTML = '';
       popupPinTemplate.querySelector('.popup__photos').innerHTML = '';
 
-      item.offer.features.forEach(function (i) {
+      item.offer.features.forEach(function (elem) {
         var elementFeaturesLi = document.createElement('li');
         elementFeaturesLi.classList.add('popup__feature');
-        elementFeaturesLi.classList.add('popup__feature--' + i);
+        elementFeaturesLi.classList.add('popup__feature--' + elem);
         popupPinTemplate.querySelector('.popup__features').appendChild(elementFeaturesLi);
       });
 
-      item.offer.photos.forEach(function (elem, i) {
-        var elementPicturesImg = document.createElement('img');
-        elementPicturesImg.width = 44;
-        elementPicturesImg.height = 40;
-        popupPinTemplate.querySelector('.popup__photos').appendChild(elementPicturesImg);
-        popupPinTemplate.querySelector('.popup__photos').appendChild(elementPicturesImg).src = elem;
-        popupPinTemplate.querySelector('.popup__photos').appendChild(elementPicturesImg).alt = 'Фотография жилья';
-        popupPinTemplate.querySelectorAll('.popup__photos img')[i].style = 'margin-right: 5px; margin-bottom: 5px';
+      item.offer.photos.forEach(function (elem) {
+        var clonedPhotosElement = templateContent.querySelector('.popup__photo').cloneNode(true);
+        clonedPhotosElement.src = elem;
+        popupPinTemplate.querySelector('.popup__photos').appendChild(clonedPhotosElement);
       });
 
       popupPinTemplate.querySelector('.popup__avatar').src = item.author.avatar;
@@ -68,6 +64,7 @@
       popup.remove();
     }
   }
+
   window.card = {
     create: createCard,
     close: closePopup

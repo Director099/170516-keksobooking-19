@@ -2,11 +2,17 @@
 
 (function () {
   var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+  var imgAttributes = {
+    width: 70,
+    height: 70,
+    alt: 'Превью',
+    style: 'object-fit: cover; margin-bottom: 8px; margin-right: 10px; border-radius: 5px'
+  };
 
   /**
    * @description - Добавление изображение после загрузки файла
    * @param fileChooser - Элемент при добавление файла
-   * @param isPreview{boolean} - Проверка на аватарку или нет
+   * @param isPreview {boolean} - Проверка на аватарку или нет
    * @param preview - Вывод изображения после загрузки
    */
 
@@ -29,10 +35,10 @@
         } else {
           var newPreview = document.createElement('img');
           newPreview.src = reader.result;
-          newPreview.width = 70;
-          newPreview.height = 70;
-          newPreview.style = 'object-fit: cover; margin-bottom: 8px; margin-right: 10px; border-radius: 5px';
-          newPreview.alt = 'Превью';
+          newPreview.width = imgAttributes.width;
+          newPreview.height = imgAttributes.height;
+          newPreview.alt = imgAttributes.alt;
+          newPreview.style = imgAttributes.style;
           preview.insertBefore(newPreview, preview.children[preview.children.length - 1]);
         }
       });

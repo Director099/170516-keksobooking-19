@@ -1,6 +1,18 @@
 'use strict';
 
 (function () {
+  var VALUE_ANY = 'any';
+  var Price = {
+    type: {
+      MIDDLE: 'middle',
+      LOW: 'low',
+      HIGH: 'high'
+    },
+    value: {
+      MIN: 10000,
+      MAX: 50000
+    }
+  };
   var form = document.querySelector('.map__filters');
   var houseType = document.querySelector('#housing-type');
   var houseRooms = document.querySelector('#housing-rooms');
@@ -23,7 +35,7 @@
      */
 
     function setFilterValues(filterValue, itemValue) {
-      return filterValue === 'any' || itemValue === filterValue;
+      return filterValue === VALUE_ANY || itemValue === filterValue;
     }
 
     /**
@@ -35,12 +47,12 @@
 
     function setFilterPrice(filterValue, itemValue) {
       switch (filterValue) {
-        case 'middle':
-          return itemValue >= 10000 && itemValue <= 50000;
-        case 'low':
-          return itemValue <= 10000;
-        case 'high':
-          return itemValue >= 50000;
+        case Price.type.MIDDLE:
+          return itemValue >= Price.value.MIN && itemValue <= Price.value.MAX;
+        case Price.type.LOW:
+          return itemValue <= Price.value.MIN;
+        case Price.type.HIGH:
+          return itemValue >= Price.value.MAX;
         default:
           return true;
       }
