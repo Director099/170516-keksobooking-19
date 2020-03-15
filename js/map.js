@@ -14,9 +14,9 @@
     if (!map.classList.contains('map--faded')) {
       return false;
     }
-    for (var i = 0; i < formElems.length; i++) {
-      formElems[i].removeAttribute('disabled');
-    }
+    formElems.forEach(function (i) {
+      i.removeAttribute('disabled');
+    });
     map.classList.remove('map--faded');
     noticeForm.classList.remove('ad-form--disabled');
     window.backend.load(window.filter.successHandler);
@@ -28,9 +28,9 @@
     if (map.classList.contains('map--faded')) {
       return false;
     }
-    for (var i = 0; i < formFieldset.length; i++) {
-      formFieldset[i].setAttribute('disabled', '');
-    }
+    formFieldset.forEach(function (i) {
+      i.setAttribute('disabled', '');
+    });
     map.classList.add('map--faded');
     noticeForm.classList.add('ad-form--disabled');
     return true;

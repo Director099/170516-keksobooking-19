@@ -14,27 +14,27 @@
         bungalo: 'Бунгало'
       };
 
-      window.card.closePopup();
+      closePopup();
 
       popupPinTemplate.querySelector('.popup__features').innerHTML = '';
       popupPinTemplate.querySelector('.popup__photos').innerHTML = '';
 
-      for (var i = 0; i < item.offer.features.length; i++) {
+      item.offer.features.forEach(function (i) {
         var elementFeaturesLi = document.createElement('li');
         elementFeaturesLi.classList.add('popup__feature');
-        elementFeaturesLi.classList.add('popup__feature--' + item.offer.features[i]);
+        elementFeaturesLi.classList.add('popup__feature--' + i);
         popupPinTemplate.querySelector('.popup__features').appendChild(elementFeaturesLi);
-      }
+      });
 
-      for (var j = 0; j < item.offer.photos.length; j++) {
+      item.offer.photos.forEach(function (elem, i) {
         var elementPicturesImg = document.createElement('img');
         elementPicturesImg.width = 44;
         elementPicturesImg.height = 40;
         popupPinTemplate.querySelector('.popup__photos').appendChild(elementPicturesImg);
-        popupPinTemplate.querySelector('.popup__photos').appendChild(elementPicturesImg).src = item.offer.photos[j];
+        popupPinTemplate.querySelector('.popup__photos').appendChild(elementPicturesImg).src = elem;
         popupPinTemplate.querySelector('.popup__photos').appendChild(elementPicturesImg).alt = 'Фотография жилья';
-        popupPinTemplate.querySelectorAll('.popup__photos img')[j].style = 'margin-right: 5px; margin-bottom: 5px';
-      }
+        popupPinTemplate.querySelectorAll('.popup__photos img')[i].style = 'margin-right: 5px; margin-bottom: 5px';
+      });
 
       popupPinTemplate.querySelector('.popup__avatar').src = item.author.avatar;
       popupPinTemplate.querySelector('.popup__avatar').alt = item.offer.title;
@@ -69,7 +69,7 @@
     }
   }
   window.card = {
-    createCard: createCard,
-    closePopup: closePopup
+    create: createCard,
+    close: closePopup
   };
 })();

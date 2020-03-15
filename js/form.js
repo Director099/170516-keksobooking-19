@@ -2,8 +2,14 @@
 
 (function () {
   var MAX_NUMBER_GUESTS = 100;
-  var MAX_PRICE = 1000000;
   var DEFAULT_UPLOAD_IMG = 'img/muffin-grey.svg';
+  var MAX_PRICE = 1000000;
+  var typeSelect = {
+    flat: 1000,
+    bungalo: 0,
+    house: 5000,
+    palace: 10000
+  };
   var noticeForm = document.querySelector('.ad-form');
   var mainBlock = document.querySelector('main');
   var imgPreview = noticeForm.querySelector('.ad-form-header__preview img');
@@ -20,6 +26,8 @@
   var imgApartament = noticeForm.querySelector('.ad-form__photo');
   var photoBlock = noticeForm.querySelector('.ad-form__photo-container');
   var btnReset = noticeForm.querySelector('.ad-form__reset');
+  var price = document.querySelector('#price');
+
 
   /**
    * @description - Закрытие модального окна после отправки формы
@@ -40,12 +48,12 @@
   }
 
   function resetMap() {
-    window.form.resetForm();
+    window.form.reset();
     window.pinMove.resetPositionPin();
     window.map.deactivateCard();
     window.render.removePins();
-    window.filter.resetFilter();
-    window.card.closePopup();
+    window.filter.reset();
+    window.card.close();
   }
 
   function closeModal(evt) {
@@ -95,14 +103,6 @@
    */
 
   function validationTypeHouse() {
-    var price = document.querySelector('#price');
-    var typeSelect = {
-      flat: 1000,
-      bungalo: 0,
-      house: 5000,
-      palace: 10000
-    };
-
     price.placeholder = typeSelect[fieldType.value];
     price.min = typeSelect[fieldType.value];
     price.max = MAX_PRICE;
@@ -144,10 +144,10 @@
 
   var onValidationInput = window.debounce(inputsValidition);
 
-  for (var j = 0; j < inputsRequired.length; j++) {
-    inputsRequired[j].addEventListener('invalid', inputsValidition);
-    inputsRequired[j].addEventListener('input', onValidationInput);
-  }
+  inputsRequired.forEach(function (elem) {
+    elem.addEventListener('invalid', inputsValidition);
+    elem.addEventListener('input', onValidationInput);
+  });
 
   timeIn.addEventListener('change', function () {
     timeOut.value = timeIn.value;
@@ -160,15 +160,14 @@
   roomNumber.addEventListener('change', function (e) {
     var value = Number(e.target.value);
 
-    for (var i = 0; i < optionCapacity.length; i++) {
-      optionCapacity[i].style.display = 'none';
-
-      if (Number(optionCapacity[i].value) === 0 && value === MAX_NUMBER_GUESTS) {
-        optionCapacity[i].style.display = 'block';
-      } else if (Number(optionCapacity[i].value) <= value && Number(optionCapacity[i].value) !== 0 && value !== MAX_NUMBER_GUESTS) {
-        optionCapacity[i].style.display = 'block';
+    optionCapacity.forEach(function (elem) {
+      elem.style.display = 'none';
+      if (Number(elem.value) === 0 && value === MAX_NUMBER_GUESTS) {
+        elem.style.display = 'block';
+      } else if (Number(elem.value) <= value && Number(elem.value) !== 0 && value !== MAX_NUMBER_GUESTS) {
+        elem.style.display = 'block';
       }
-    }
+    });
 
     if (value >= MAX_NUMBER_GUESTS) {
       capacity.value = 0;
@@ -194,6 +193,6 @@
   });
 
   window.form = {
-    resetForm: resetForm
+    reset: resetForm
   };
 })();

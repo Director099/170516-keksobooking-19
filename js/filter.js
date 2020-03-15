@@ -12,7 +12,7 @@
   }
 
   function updatePins() {
-    window.card.closePopup();
+    window.card.close();
     window.render.removePins();
 
     /**
@@ -90,6 +90,6 @@
   window.filter = {
     pinsArray: [],
     successHandler: successHandler,
-    resetFilter: resetFilter
+    reset: resetFilter
   };
 })();
