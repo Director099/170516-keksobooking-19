@@ -1,9 +1,12 @@
 'use strict';
 
 (function () {
-  var MAX_NUMBER_GUESTS = 100;
-  var DEFAULT_UPLOAD_IMG = 'img/muffin-grey.svg';
   var MAX_PRICE = 1000000;
+  var DEFAULT_UPLOAD_IMG = 'img/muffin-grey.svg';
+  var Guest = {
+    MAX: 100,
+    NONE: 0
+  };
   var typeSelect = {
     flat: 1000,
     bungalo: 0,
@@ -29,17 +32,14 @@
   var price = document.querySelector('#price');
   var templateSucces = document.querySelector('#success').content.cloneNode(true);
   var templateError = document.querySelector('#error').content.cloneNode(true);
+  var onValidationInput = window.debounce(inputsValidition);
 
-
-  /**
-   * @description - Закрытие модального окна после отправки формы
-   * @param evt - Возвращает событие
-   */
 
   function resetForm() {
     var errorText = document.querySelectorAll('.field-error__text');
     if (errorText) {
       errorText.forEach(function (elem) {
+        elem.previousElementSibling.style = '';
         elem.remove();
       });
     }
@@ -57,6 +57,11 @@
     window.filter.reset();
     window.card.close();
   }
+
+  /**
+   * @description - Закрытие модального окна после отправки формы
+   * @param evt - Возвращает событие
+   */
 
   function closeModal(evt) {
     var mainModalSuccess = mainBlock.querySelector('.success');
@@ -109,7 +114,7 @@
   }
 
   /**
-   * @description - валидация поля названия жилья
+   * @description - валидация поля названия жилья и цены
    * @param e - Возвращает элемент input
    */
 
@@ -117,32 +122,31 @@
     var elementText = document.createElement('span');
     elementText.style.color = 'red';
     elementText.className = 'field-error__text';
-    e.target.style.borderColor = 'red';
-    var elemError = e.target.closest('.ad-form__element');
     var fieldValue = e.target.value.length;
+    e.target.style.borderColor = 'red';
     e.preventDefault();
+    e.target.focus();
+    validationTypeHouse();
+
     if (!e.target.parentElement.querySelector('.field-error__text')) {
       e.target.parentElement.appendChild(elementText);
     }
 
-    e.target.focus();
-    validationTypeHouse();
+    var textError = e.target.closest('.ad-form__element').querySelector('.field-error__text');
     if (e.target.validity.tooShort) {
-      elemError.querySelector('.field-error__text').textContent = 'Заголовок не может быть короче 30 символов, сейчас символов ' + fieldValue;
+      textError.textContent = 'Заголовок не может быть короче 30 символов, сейчас символов ' + fieldValue;
     } else if (e.target.validity.valueMissing) {
-      elemError.querySelector('.field-error__text').textContent = 'Заполните это поле';
+      textError.textContent = 'Заполните это поле';
     } else if (e.target.validity.rangeOverflow) {
-      elemError.querySelector('.field-error__text').innerHTML = 'Жилье не может стоить больше <br> 1 0000 000р за ночь';
+      textError.innerHTML = 'Жилье не может стоить больше <br> 1 0000 000р за ночь';
     } else if (e.target.validity.rangeUnderflow) {
-      elemError.querySelector('.field-error__text').innerHTML = 'Жилье не может стоить меньше <br>' + e.target.min;
+      textError.innerHTML = 'Жилье не может стоить меньше <br>' + e.target.min;
     } else if (e.target.validity.valid) {
       e.target.classList.remove('field-error__text');
       e.target.style = '';
-      e.target.parentElement.querySelector('.field-error__text').remove();
+      textError.remove();
     }
   }
-
-  var onValidationInput = window.debounce(inputsValidition);
 
   inputsRequired.forEach(function (elem) {
     elem.addEventListener('invalid', inputsValidition);
@@ -162,15 +166,15 @@
 
     optionCapacity.forEach(function (elem) {
       elem.style.display = 'none';
-      if (Number(elem.value) === 0 && value === MAX_NUMBER_GUESTS) {
+      if (Number(elem.value) === Guest.NONE && value === Guest.MAX) {
         elem.style.display = 'block';
-      } else if (Number(elem.value) <= value && Number(elem.value) !== 0 && value !== MAX_NUMBER_GUESTS) {
+      } else if (Number(elem.value) <= value && Number(elem.value) !== Guest.NONE && value !== Guest.MAX) {
         elem.style.display = 'block';
       }
     });
 
-    if (value >= MAX_NUMBER_GUESTS) {
-      capacity.value = 0;
+    if (value >= Guest.MAX) {
+      capacity.value = Guest.NONE;
     } else if (value !== Number(capacity.value)) {
       capacity.value = e.target.value;
     }

@@ -8,13 +8,11 @@
   var mapPins = document.querySelector('.map__pins');
   var mainPin = document.querySelector('.map__pin--main');
   var fieldAddress = document.querySelector('#address');
-
   var pinSize = {
     width: mainPin.offsetWidth,
     height: mainPin.offsetHeight,
     tip: 17
   };
-
   var positionPins = {
     x: mainPin.offsetLeft,
     y: mainPin.offsetTop
