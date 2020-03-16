@@ -29,7 +29,8 @@
   var imgApartament = noticeForm.querySelector('.ad-form__photo');
   var photoBlock = noticeForm.querySelector('.ad-form__photo-container');
   var btnReset = noticeForm.querySelector('.ad-form__reset');
-  var price = document.querySelector('#price');
+  var price = noticeForm.querySelector('#price');
+  var formFieldset = noticeForm.querySelectorAll('fieldset');
   var templateSucces = document.querySelector('#success').content.cloneNode(true);
   var templateError = document.querySelector('#error').content.cloneNode(true);
   var onValidationInput = window.debounce(inputsValidition);
@@ -51,10 +52,25 @@
   function resetMap() {
     window.form.reset();
     window.pinMove.resetPositionPin();
-    window.map.deactivateCard();
+    window.page.deactivatePage();
     window.render.removePins();
     window.filter.reset();
     window.card.close();
+  }
+
+  function activateForm() {
+    noticeForm.classList.remove('ad-form--disabled');
+    formFieldset.forEach(function (elem) {
+      elem.removeAttribute('disabled');
+    });
+  }
+
+  function deactivateForm() {
+    window.utils.fieldAddress.value = window.pinMove.positionPins.x + ' , ' + window.pinMove.positionPins.y;
+    noticeForm.classList.add('ad-form--disabled');
+    formFieldset.forEach(function (elem) {
+      elem.setAttribute('disabled', '');
+    });
   }
 
   /**
@@ -118,14 +134,13 @@
    */
 
   function inputsValidition(e) {
+    var fieldValue = e.target.value.length;
     var elementText = document.createElement('span');
     elementText.style.color = 'red';
     elementText.className = 'field-error__text';
-    var fieldValue = e.target.value.length;
     e.target.style.borderColor = 'red';
     e.preventDefault();
     e.target.focus();
-    validationTypeHouse();
 
     if (!e.target.parentElement.querySelector('.field-error__text')) {
       e.target.parentElement.appendChild(elementText);
@@ -195,7 +210,11 @@
     window.backend.upload(new FormData(noticeForm), showSuccess, showError);
   });
 
+  deactivateForm();
+
   window.form = {
-    reset: resetForm
+    reset: resetForm,
+    deactivate: deactivateForm,
+    activate: activateForm
   };
 })();

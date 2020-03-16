@@ -7,7 +7,6 @@
   };
   var mapPins = document.querySelector('.map__pins');
   var mainPin = document.querySelector('.map__pin--main');
-  var fieldAddress = document.querySelector('#address');
   var pinSize = {
     width: mainPin.offsetWidth,
     height: mainPin.offsetHeight,
@@ -52,8 +51,8 @@
         y: mainPin.offsetTop - shift.y
       };
 
-      if (fieldAddress) {
-        fieldAddress.value = Math.floor(movePositionPins.x + (pinSize.width / 2)) + ' , ' + (movePositionPins.y + (pinSize.height + pinSize.tip));
+      if (window.utils.fieldAddress) {
+        window.utils.fieldAddress.value = Math.floor(movePositionPins.x + (pinSize.width / 2)) + ' , ' + (movePositionPins.y + (pinSize.height + pinSize.tip));
       }
 
       if (movePositionPins.x >= -(pinSize.width / 2) &&
@@ -79,7 +78,7 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
-
+  mainPin.addEventListener('click', window.page.activatePage);
   window.pinMove = {
     resetPositionPin: resetPositionPin,
     positionPins: positionPins,

@@ -2,7 +2,6 @@
 
 (function () {
   var createFragment = document.createDocumentFragment();
-  var map = document.querySelector('.map');
   var templateContent = document.querySelector('#card').content;
   var popupPinTemplate = templateContent.querySelector('.popup').cloneNode(true);
   var popupPhotoItem = templateContent.querySelector('.popup__photo');
@@ -54,7 +53,7 @@
       popupType .textContent = offerType[item.offer.type];
 
       createFragment.appendChild(popupPinTemplate);
-      map.appendChild(createFragment);
+      window.utils.map.appendChild(createFragment);
 
       popupPinTemplate.querySelector('.popup__close').addEventListener('click', closePopup);
       document.addEventListener('keydown', function (evt) {
