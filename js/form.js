@@ -34,7 +34,6 @@
   var templateError = document.querySelector('#error').content.cloneNode(true);
   var onValidationInput = window.debounce(inputsValidition);
 
-
   function resetForm() {
     var errorText = document.querySelectorAll('.field-error__text');
     if (errorText) {

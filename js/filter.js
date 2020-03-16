@@ -24,6 +24,7 @@
   }
 
   function updatePins() {
+    var houseFeatures = document.querySelectorAll('.map__checkbox:checked');
     window.card.close();
     window.render.removePins();
 
@@ -58,7 +59,6 @@
       }
     }
 
-    var houseFeatures = document.querySelectorAll('.map__checkbox:checked');
     var arrHouseFeatures = Array.from(houseFeatures).map(function (elem) {
       return elem.value;
     });
