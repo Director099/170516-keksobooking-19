@@ -45,7 +45,7 @@
     }
 
     imgPreview.src = DEFAULT_UPLOAD_IMG;
-    window.fileField.removePicture(photoBlock);
+    new FileUploader().removePicture(photoBlock);
     noticeForm.reset();
   }
 
@@ -195,11 +195,11 @@
   });
 
   inputAvatar.addEventListener('change', function () {
-    window.fileField.addPicture(inputAvatar, true, imgAvatar);
+    new FileUploader().addPicture(inputAvatar, true, imgAvatar);
   });
 
   inputImages.addEventListener('change', function () {
-    window.fileField.addPicture(inputImages, false, imgApartament);
+    new FileUploader().addPicture(inputImages, false, imgApartament);
   });
 
   btnReset.addEventListener('click', resetMap);
