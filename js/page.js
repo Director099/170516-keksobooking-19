@@ -6,7 +6,7 @@
       return false;
     }
     window.form.activate();
-    window.backend.load(window.filter.successHandler);
+    new Server().load(window.filter.successHandler);
     window.utils.map.classList.remove('map--faded');
     return true;
   }

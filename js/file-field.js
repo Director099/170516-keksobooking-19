@@ -10,13 +10,6 @@ function FileUploader() {
   };
 }
 
-/**
- * @description - Добавление изображение после загрузки файла
- * @param fileChooser - Элемент при добавление файла
- * @param isPreview {boolean} - Проверка на аватарку или нет
- * @param preview - Вывод изображения после загрузки
- */
-
 FileUploader.prototype = {
   addPicture: function (fileChooser, isPreview, preview) {
     var file = fileChooser.files[0];

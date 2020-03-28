@@ -29,7 +29,7 @@
         pinMapTemplate.style.top = cardOffers[i].location.y - Pin.HEIGHT + 'px';
         createFragment.appendChild(pinMapTemplate);
         mapPins.appendChild(createFragment);
-        pinMapTemplate.addEventListener('click', window.card.create(cardOffers[i]));
+        pinMapTemplate.addEventListener('click', new Card().create(cardOffers[i]));
       }
     }
   }
